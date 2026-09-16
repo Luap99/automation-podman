@@ -145,6 +145,11 @@ INSTALL_PACKAGES=(\
     zstd
 )
 
+# Rawhide also installs conmon-v3 alongside conmon.
+if [[ "$BUILD_NAME" == "fedora-rawhide" ]]; then
+    INSTALL_PACKAGES+=(conmon-v3)
+fi
+
 # Rawhide images don't need these packages
 if [[ "$BUILD_NAME" != "fedora-rawhide" ]]; then
     INSTALL_PACKAGES+=( \
