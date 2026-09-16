@@ -128,6 +128,7 @@ INSTALL_PACKAGES=(\
     shared-mime-info
     ShellCheck
     skopeo
+    slirp4netns
     socat
     sqlite-libs
     sqlite-devel
