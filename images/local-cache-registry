@@ -273,6 +273,14 @@ function do_initialize() {
     mkdir -p /etc/containers/certs.d/127.0.0.1:${REGISTRY_PORT}
     cp /etc/local-registry/localhost.crt /etc/containers/certs.d/127.0.0.1:${REGISTRY_PORT}/ca.crt
 
+    # The ubi10 image has sigstore attachments, add a config for the cache registry so we can push them there.
+    mkdir -p /etc/containers/registries.d
+    cat > /etc/containers/registries.d/localhost-cache-registry.yaml <<EOF
+docker:
+  127.0.0.1:${REGISTRY_PORT}:
+    use-sigstore-attachments: true
+EOF
+
     # Create a systemd unit file. Enable it (so it starts at boot)
     # and also start it --now.
     cat > /etc/systemd/system/$ME.service <<EOF
